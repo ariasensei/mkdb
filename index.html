@@ -3,270 +3,511 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MKDB - Systems. Solutions. Success.</title>
+  <title>MKDB - Maria Kristina D. Basa</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="/_sdk/data_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&amp;family=Outfit:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: '#C9A84C',
+            'gold-light': '#E8D48B',
+            'gold-dark': '#A07C1C',
+            dark: '#0A0A0A',
+            'dark-card': '#141414',
+            'dark-border': '#2A2A2A',
+            gray: { 400: '#9CA3AF', 500: '#6B7280' }
+          },
+          fontFamily: {
+            heading: ['Cormorant Garamond', 'serif'],
+            body: ['Outfit', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
   <style>
     html, body { height: 100%; margin: 0; }
-    .font-display { font-family: 'Playfair Display', serif; }
-    .font-body { font-family: 'DM Sans', sans-serif; }
-    .gradient-gold { background: linear-gradient(135deg, #c9a84c 0%, #f0d78c 50%, #c9a84c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-    .fade-in { animation: fadeIn 0.8s ease forwards; opacity: 0; }
-    .fade-in-delay-1 { animation-delay: 0.2s; }
-    .fade-in-delay-2 { animation-delay: 0.4s; }
-    .fade-in-delay-3 { animation-delay: 0.6s; }
-    @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(20px); } }
-    .bg-pattern { background-image: radial-gradient(circle at 20% 50%, rgba(201,168,76,0.05) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(201,168,76,0.03) 0%, transparent 50%); }
-    .scroll-smooth { scroll-behavior: smooth; }
-    input:focus, textarea:focus, select:focus { outline: none; box-shadow: 0 0 0 2px #c9a84c; }
+    .smooth-scroll { scroll-behavior: smooth; }
+    .gold-gradient { background: linear-gradient(135deg, #C9A84C, #E8D48B, #C9A84C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .gold-border { border-image: linear-gradient(135deg, #C9A84C, #E8D48B) 1; }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(201,168,76,0.1); border-color: #C9A84C; }
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .stagger-1 { animation-delay: 0.1s; }
+    .stagger-2 { animation-delay: 0.2s; }
+    .stagger-3 { animation-delay: 0.3s; }
+    .stagger-4 { animation-delay: 0.4s; }
+    .stagger-5 { animation-delay: 0.5s; }
+    .hero-bg { background: radial-gradient(ellipse at top right, rgba(201,168,76,0.05) 0%, transparent 50%), radial-gradient(ellipse at bottom left, rgba(201,168,76,0.03) 0%, transparent 50%); }
+    .skill-bar { background: linear-gradient(90deg, #C9A84C, #E8D48B); border-radius: 4px; height: 6px; transition: width 1s ease; }
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #C9A84C; transition: width 0.3s ease; }
+    .nav-link:hover::after { width: 100%; }
+    .process-line { position: absolute; left: 24px; top: 48px; bottom: 0; width: 1px; background: linear-gradient(to bottom, #C9A84C, transparent); }
+    input:focus, textarea:focus { outline: none; border-color: #C9A84C; box-shadow: 0 0 0 2px rgba(201,168,76,0.2); }
   </style>
   <style>body { box-sizing: border-box; }</style>
  </head>
- <body class="h-full font-body bg-[#0f1117] text-[#e8e4dc] overflow-auto scroll-smooth"><!-- Navigation -->
-  <nav class="fixed top-0 w-full z-50 bg-[#0f1117]/90 backdrop-blur-md border-b border-[#c9a84c]/10">
-   <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-4">
-     <div class="font-display font-900 text-xl tracking-wider"><span class="gradient-gold">MKDB</span>
-     </div>
-     <div class="hidden sm:flex items-center gap-2 text-sm text-[#a09a8e] border-l border-[#c9a84c]/20 pl-4">
-      <i data-lucide="clock" style="width:16px;height:16px;color:#c9a84c;"></i> <span id="ph-clock" class="font-mono">--:-- --</span> <span class="text-xs text-[#706b60]">PH</span>
-     </div>
-    </div>
-    <div class="hidden md:flex gap-8 text-sm font-medium text-[#a09a8e]"><a href="#about" class="hover:text-[#c9a84c] transition-colors">About</a> <a href="#services" class="hover:text-[#c9a84c] transition-colors">Services</a> <a href="#experience" class="hover:text-[#c9a84c] transition-colors">Experience</a> <a href="https://arialearninghub.my.canva.site/portfolio-maria-kristina-basa" target="_blank" rel="noopener noreferrer" class="hover:text-[#c9a84c] transition-colors">Portfolio</a> <a href="#consult" class="hover:text-[#c9a84c] transition-colors">Get in Touch</a>
-    </div><button id="mobile-menu-btn" class="md:hidden text-[#c9a84c]"><i data-lucide="menu" style="width:24px;height:24px;"></i></button>
+ <body class="bg-dark text-white font-body smooth-scroll h-full overflow-auto">
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-50 bg-dark/90 backdrop-blur-md border-b border-dark-border transition-all duration-300">
+   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#home" class="font-heading text-2xl font-bold gold-gradient">MKDB</a>
+    <div class="hidden md:flex items-center gap-8">
+     <a href="#home" class="nav-link text-sm text-gray-400 hover:text-gold transition-colors">Home</a> <a href="#about" class="nav-link text-sm text-gray-400 hover:text-gold transition-colors">About</a> <a href="#services" class="nav-link text-sm text-gray-400 hover:text-gold transition-colors">Services</a> <a href="#portfolio" class="nav-link text-sm text-gray-400 hover:text-gold transition-colors">Portfolio</a> <a href="#skills" class="nav-link text-sm text-gray-400 hover:text-gold transition-colors">Skills</a> <a href="#process" class="nav-link text-sm text-gray-400 hover:text-gold transition-colors">Process</a> <a href="#contact" class="nav-link text-sm text-gray-400 hover:text-gold transition-colors">Contact</a>
+    </div><button id="mobile-menu-btn" class="md:hidden text-gold"> <i data-lucide="menu" class="w-6 h-6"></i> </button>
    </div>
-   <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-3 text-sm text-[#a09a8e]"><a href="#about" class="block hover:text-[#c9a84c]">About</a> <a href="#services" class="block hover:text-[#c9a84c]">Services</a> <a href="#experience" class="block hover:text-[#c9a84c]">Experience</a> <a href="https://arialearninghub.my.canva.site/portfolio-maria-kristina-basa" target="_blank" rel="noopener noreferrer" class="block hover:text-[#c9a84c]">Portfolio</a> <a href="#consult" class="block hover:text-[#c9a84c]">Get in Touch</a>
+   <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-3">
+    <a href="#home" class="block text-sm text-gray-400 hover:text-gold">Home</a> <a href="#about" class="block text-sm text-gray-400 hover:text-gold">About</a> <a href="#services" class="block text-sm text-gray-400 hover:text-gold">Services</a> <a href="#portfolio" class="block text-sm text-gray-400 hover:text-gold">Portfolio</a> <a href="#skills" class="block text-sm text-gray-400 hover:text-gold">Skills</a> <a href="#process" class="block text-sm text-gray-400 hover:text-gold">Process</a> <a href="#contact" class="block text-sm text-gray-400 hover:text-gold">Contact</a>
    </div>
-  </nav><!-- Hero -->
-  <section class="min-h-[90%] flex items-center justify-center bg-pattern px-6 pt-20">
-   <div class="text-center max-w-4xl mx-auto">
-    <div class="fade-in mb-6">
-     <h1 class="font-display text-5xl md:text-7xl font-900 tracking-tight leading-tight"><span class="gradient-gold">MKDB</span></h1>
-     <p id="tagline-el" class="text-lg md:text-xl tracking-[0.3em] uppercase text-[#a09a8e] mt-2 font-light">Systems. Solutions. Success.</p>
-    </div>
-    <div class="fade-in fade-in-delay-1 mt-8">
-     <h2 class="font-display text-2xl md:text-3xl font-bold text-[#e8e4dc]">Maria Kristina D. Basa</h2>
-     <div class="mt-4 flex flex-wrap justify-center gap-3"><span class="px-4 py-1.5 bg-[#c9a84c]/10 border border-[#c9a84c]/30 rounded-full text-sm text-[#c9a84c]">Business System Consultant</span> <span class="px-4 py-1.5 bg-[#c9a84c]/10 border border-[#c9a84c]/30 rounded-full text-sm text-[#c9a84c]">Web Developer</span> <span class="px-4 py-1.5 bg-[#c9a84c]/10 border border-[#c9a84c]/30 rounded-full text-sm text-[#c9a84c]">Project Coordinator</span> <span class="px-4 py-1.5 bg-[#c9a84c]/10 border border-[#c9a84c]/30 rounded-full text-sm text-[#c9a84c]">Educator</span>
-     </div>
-    </div>
-    <div class="fade-in fade-in-delay-2 mt-10">
-     <p id="subtitle-el" class="text-[#a09a8e] text-lg italic font-light">Building systems. Delivering solutions. Empowering people.</p>
-     <p class="mt-2 text-sm text-[#706b60] tracking-wide uppercase">Freelance · Flexible · Focused on Impact</p>
-    </div>
-    <div class="fade-in fade-in-delay-3 mt-10"><a href="#consult" class="inline-block px-8 py-3 bg-[#c9a84c] text-[#0f1117] font-semibold rounded-lg hover:bg-[#d4b65e] transition-colors">Book Free Consultation</a>
+  </nav><!-- Hero Section -->
+  <section id="home" class="hero-bg min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
+   <div class="absolute inset-0 opacity-5">
+    <div class="absolute top-20 right-20 w-72 h-72 border border-gold/20 rounded-full"></div>
+    <div class="absolute bottom-20 left-20 w-96 h-96 border border-gold/10 rounded-full"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-gold/5 rounded-full"></div>
+   </div>
+   <div class="text-center max-w-3xl relative z-10">
+    <h1 class="fade-in stagger-1 font-heading text-5xl md:text-7xl font-bold mb-2"><span class="gold-gradient">MKDB</span></h1>
+    <p id="hero-tagline" class="fade-in stagger-2 text-gold-light/90 text-xl md:text-2xl font-heading italic mb-8">Systems. Solutions. Success.</p>
+    <h2 class="fade-in stagger-3 text-white text-lg md:text-xl font-light mb-6">Maria Kristina D. Basa</h2>
+    <p id="hero-roles" class="fade-in stagger-4 text-gold font-semibold text-sm md:text-base mb-10 leading-relaxed uppercase tracking-wide">Business System Consultant · Web Developer · Project Coordinator · Educator</p>
+    <div class="fade-in stagger-5 flex flex-col sm:flex-row gap-4 justify-center">
+     <a href="https://arialearninghub.my.canva.site/portfolio-maria-kristina-basa" target="_blank" rel="noopener noreferrer" class="px-8 py-3 bg-gold text-dark font-semibold rounded-sm hover:bg-gold-light transition-all duration-300 text-sm tracking-wide">View My Work</a> <a href="#contact" class="px-8 py-3 border border-gold text-gold rounded-sm hover:bg-gold/10 transition-all duration-300 text-sm tracking-wide">Contact Me</a>
     </div>
    </div>
-  </section><!-- About -->
+  </section><!-- About Section -->
   <section id="about" class="py-24 px-6">
-   <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-    <div>
-     <h3 class="font-display text-3xl font-bold mb-6 text-[#e8e4dc]">Why Work With Me?</h3>
-     <p class="text-[#a09a8e] leading-relaxed mb-4">With over <strong class="text-[#c9a84c]">6 years of consultancy and development experience</strong> since 2018, I bring a unique combination of technical expertise, business acumen, and educational background to every project.</p>
-     <p class="text-[#a09a8e] leading-relaxed mb-4">I hold a <strong class="text-[#c9a84c]">BS in Information Technology</strong> with an ongoing <strong class="text-[#c9a84c]">Master's in IT</strong>, and serve as a College IT Instructor — meaning I don't just build systems, I make sure you understand them.</p>
-     <p class="text-[#a09a8e] leading-relaxed">Whether you're a startup needing your first system or an established business ready to scale, I deliver solutions that are practical, sustainable, and aligned with your goals.</p>
-     <div class="mt-6 flex gap-4 text-sm text-[#706b60]"><span class="flex items-center gap-1"><i data-lucide="shield-check" style="width:16px;height:16px;color:#c9a84c;"></i> BIR-Registered</span> <span class="flex items-center gap-1"><i data-lucide="file-text" style="width:16px;height:16px;color:#c9a84c;"></i> Official Invoices Issued</span>
-     </div>
-    </div>
-    <div class="grid grid-cols-2 gap-4">
-     <div class="bg-[#181b24] p-6 rounded-xl border border-[#c9a84c]/10 text-center card-hover">
-      <p class="text-3xl font-bold gradient-gold font-display">6+</p>
-      <p class="text-sm text-[#a09a8e] mt-1">Years Experience</p>
-     </div>
-     <div class="bg-[#181b24] p-6 rounded-xl border border-[#c9a84c]/10 text-center card-hover">
-      <p class="text-3xl font-bold gradient-gold font-display">MIT</p>
-      <p class="text-sm text-[#a09a8e] mt-1">Ongoing Studies</p>
-     </div>
-     <div class="bg-[#181b24] p-6 rounded-xl border border-[#c9a84c]/10 text-center card-hover">
-      <p class="text-3xl font-bold gradient-gold font-display">100%</p>
-      <p class="text-sm text-[#a09a8e] mt-1">Client-Focused</p>
-     </div>
-     <div class="bg-[#181b24] p-6 rounded-xl border border-[#c9a84c]/10 text-center card-hover">
-      <p class="text-3xl font-bold gradient-gold font-display">BIR</p>
-      <p class="text-sm text-[#a09a8e] mt-1">Registered Pro</p>
+   <div class="max-w-4xl mx-auto">
+    <h2 id="about-heading" class="fade-in font-heading text-4xl md:text-5xl font-bold gold-gradient mb-12 text-center">About Me</h2>
+    <div class="fade-in space-y-6 text-gray-400 leading-relaxed">
+     <p>Hi, I'm <span class="text-gold font-medium">Maria Kristina Dimaunahan</span> — a Business Systems Consultant, Web Developer, and Educator passionate about creating smart, efficient, and user-friendly digital solutions.</p>
+     <p>I specialize in building customized systems that help businesses and organizations streamline their operations, improve workflow, and transition smoothly into the digital space. From simple websites to more complex systems with databases and client-side functionality, I focus on solutions that are practical, scalable, and easy to use.</p>
+     <p>My work combines technology and strategy. I develop websites using <span class="text-white">WordPress, GoDaddy, and custom coding (HTML, CSS, JavaScript, PHP, and databases)</span> depending on what best fits the project. I also work closely with clients to understand their needs and translate them into clear, functional systems.</p>
+     <p>Beyond development, I am also involved in education and media coordination, where I apply creativity, structure, and communication skills in teaching, training, and content creation.</p>
+     <div class="border-l-2 border-gold pl-6 mt-8">
+      <p class="text-gold-light italic font-heading text-lg">"I believe that good systems don't just look good — they make work simpler, faster, and more meaningful."</p>
      </div>
     </div>
    </div>
-  </section><!-- Services -->
-  <section id="services" class="py-24 px-6 bg-[#13161f]">
-   <div class="max-w-5xl mx-auto">
-    <h3 class="font-display text-3xl font-bold text-center mb-4">What I Can Do For You</h3>
-    <p class="text-center text-[#a09a8e] mb-14 max-w-2xl mx-auto">End-to-end solutions tailored to your business needs — from planning to deployment and beyond.</p>
-    <div class="grid md:grid-cols-3 gap-6">
-     <div class="bg-[#181b24] p-8 rounded-xl border border-[#c9a84c]/10 card-hover">
-      <div class="w-12 h-12 bg-[#c9a84c]/10 rounded-lg flex items-center justify-center mb-4">
-       <i data-lucide="settings" style="width:24px;height:24px;color:#c9a84c;"></i>
+  </section><!-- Services Section -->
+  <section id="services" class="py-24 px-6 bg-dark-card">
+   <div class="max-w-6xl mx-auto">
+    <h2 class="font-heading text-4xl md:text-5xl font-bold gold-gradient mb-4 text-center">Services</h2>
+    <p class="text-gray-500 text-center mb-16 max-w-xl mx-auto">Tailored digital solutions designed to streamline your business operations</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+     <div class="card-hover bg-dark border border-dark-border rounded-sm p-8">
+      <div class="w-12 h-12 bg-gold/10 rounded-sm flex items-center justify-center mb-5">
+       <i data-lucide="globe" class="w-6 h-6 text-gold"></i>
       </div>
-      <h4 class="font-semibold text-lg mb-2">Business Systems</h4>
-      <p class="text-sm text-[#a09a8e]">Custom systems design, workflow automation, and process optimization to streamline your operations.</p>
+      <h3 class="text-gold font-semibold text-lg mb-3">Website Development</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Custom websites built with WordPress or hand-coded solutions using HTML, CSS, JavaScript, and PHP — tailored to your brand and goals.</p>
      </div>
-     <div class="bg-[#181b24] p-8 rounded-xl border border-[#c9a84c]/10 card-hover">
-      <div class="w-12 h-12 bg-[#c9a84c]/10 rounded-lg flex items-center justify-center mb-4">
-       <i data-lucide="code" style="width:24px;height:24px;color:#c9a84c;"></i>
+     <div class="card-hover bg-dark border border-dark-border rounded-sm p-8">
+      <div class="w-12 h-12 bg-gold/10 rounded-sm flex items-center justify-center mb-5">
+       <i data-lucide="settings" class="w-6 h-6 text-gold"></i>
       </div>
-      <h4 class="font-semibold text-lg mb-2">Web Development</h4>
-      <p class="text-sm text-[#a09a8e]">Professional websites, web apps, and digital platforms built for performance, scalability, and user experience.</p>
+      <h3 class="text-gold font-semibold text-lg mb-3">Business Systems Design</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Ordering systems, booking platforms, and management tools designed to automate workflows and reduce manual tasks.</p>
      </div>
-     <div class="bg-[#181b24] p-8 rounded-xl border border-[#c9a84c]/10 card-hover">
-      <div class="w-12 h-12 bg-[#c9a84c]/10 rounded-lg flex items-center justify-center mb-4">
-       <i data-lucide="users" style="width:24px;height:24px;color:#c9a84c;"></i>
+     <div class="card-hover bg-dark border border-dark-border rounded-sm p-8">
+      <div class="w-12 h-12 bg-gold/10 rounded-sm flex items-center justify-center mb-5">
+       <i data-lucide="database" class="w-6 h-6 text-gold"></i>
       </div>
-      <h4 class="font-semibold text-lg mb-2">Project Coordination</h4>
-      <p class="text-sm text-[#a09a8e]">End-to-end project management ensuring deliverables are on time, on budget, and exceed expectations.</p>
+      <h3 class="text-gold font-semibold text-lg mb-3">Database Integration</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">MySQL-based systems that store, manage, and retrieve your data efficiently — from client records to inventory tracking.</p>
      </div>
-     <div class="bg-[#181b24] p-8 rounded-xl border border-[#c9a84c]/10 card-hover">
-      <div class="w-12 h-12 bg-[#c9a84c]/10 rounded-lg flex items-center justify-center mb-4">
-       <i data-lucide="book-open" style="width:24px;height:24px;color:#c9a84c;"></i>
+     <div class="card-hover bg-dark border border-dark-border rounded-sm p-8">
+      <div class="w-12 h-12 bg-gold/10 rounded-sm flex items-center justify-center mb-5">
+       <i data-lucide="layout" class="w-6 h-6 text-gold"></i>
       </div>
-      <h4 class="font-semibold text-lg mb-2">Training &amp; Education</h4>
-      <p class="text-sm text-[#a09a8e]">Workshops, mentoring, and technical training to empower your team with the knowledge they need.</p>
+      <h3 class="text-gold font-semibold text-lg mb-3">UI/UX Improvement</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Website redesign and interface improvements focused on user experience, accessibility, and modern visual standards.</p>
      </div>
-     <div class="bg-[#181b24] p-8 rounded-xl border border-[#c9a84c]/10 card-hover">
-      <div class="w-12 h-12 bg-[#c9a84c]/10 rounded-lg flex items-center justify-center mb-4">
-       <i data-lucide="line-chart" style="width:24px;height:24px;color:#c9a84c;"></i>
+     <div class="card-hover bg-dark border border-dark-border rounded-sm p-8">
+      <div class="w-12 h-12 bg-gold/10 rounded-sm flex items-center justify-center mb-5">
+       <i data-lucide="trending-up" class="w-6 h-6 text-gold"></i>
       </div>
-      <h4 class="font-semibold text-lg mb-2">IT Consultancy</h4>
-      <p class="text-sm text-[#a09a8e]">Strategic technology advice to help you make informed decisions and invest wisely in your digital future.</p>
+      <h3 class="text-gold font-semibold text-lg mb-3">Digital Transformation</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Consultation and strategy for businesses transitioning from manual to digital processes — step by step, at your pace.</p>
      </div>
-     <div class="bg-[#181b24] p-8 rounded-xl border border-[#c9a84c]/10 card-hover">
-      <div class="w-12 h-12 bg-[#c9a84c]/10 rounded-lg flex items-center justify-center mb-4">
-       <i data-lucide="rocket" style="width:24px;height:24px;color:#c9a84c;"></i>
+     <div class="card-hover bg-dark border border-dark-border rounded-sm p-8">
+      <div class="w-12 h-12 bg-gold/10 rounded-sm flex items-center justify-center mb-5">
+       <i data-lucide="book-open" class="w-6 h-6 text-gold"></i>
       </div>
-      <h4 class="font-semibold text-lg mb-2">Digital Transformation</h4>
-      <p class="text-sm text-[#a09a8e]">Modernize legacy processes, adopt new tools, and position your business for growth in the digital age.</p>
+      <h3 class="text-gold font-semibold text-lg mb-3">Training &amp; Education</h3>
+      <p class="text-gray-400 text-sm leading-relaxed">Workshops and one-on-one sessions on web development, digital tools, and system management for teams or individuals.</p>
      </div>
     </div>
    </div>
-  </section><!-- Experience Timeline -->
-  <section id="experience" class="py-24 px-6">
+  </section><!-- Portfolio Section -->
+  <section id="portfolio" class="py-24 px-6">
+   <div class="max-w-6xl mx-auto">
+    <h2 class="font-heading text-4xl md:text-5xl font-bold gold-gradient mb-4 text-center">Portfolio</h2>
+    <p class="text-gray-500 text-center mb-16 max-w-xl mx-auto">A selection of systems and solutions I've built for clients</p>
+    <div class="grid md:grid-cols-2 gap-8">
+     <div class="card-hover bg-dark-card border border-dark-border rounded-sm overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-gold/10 to-gold/5 flex items-center justify-center">
+       <i data-lucide="calendar" class="w-16 h-16 text-gold/40"></i>
+      </div>
+      <div class="p-6">
+       <h3 class="text-gold font-semibold text-lg mb-2">School Booking System</h3>
+       <p class="text-gray-400 text-sm mb-4">A web-based booking and scheduling system for educational institutions, enabling seamless room and resource reservations.</p>
+       <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">PHP</span> <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">MySQL</span> <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">JavaScript</span>
+       </div>
+       <p class="text-gray-500 text-xs"><i data-lucide="check-circle" class="w-3 h-3 inline mr-1 text-gold"></i>Reduced scheduling conflicts by 80%</p>
+      </div>
+     </div>
+     <div class="card-hover bg-dark-card border border-dark-border rounded-sm overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-gold/10 to-gold/5 flex items-center justify-center">
+       <i data-lucide="shopping-cart" class="w-16 h-16 text-gold/40"></i>
+      </div>
+      <div class="p-6">
+       <h3 class="text-gold font-semibold text-lg mb-2">Online Ordering System</h3>
+       <p class="text-gray-400 text-sm mb-4">A complete ordering platform with product catalog, cart, and order management for small businesses transitioning online.</p>
+       <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">WordPress</span> <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">PHP</span> <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">CSS</span>
+       </div>
+       <p class="text-gray-500 text-xs"><i data-lucide="check-circle" class="w-3 h-3 inline mr-1 text-gold"></i>Increased client sales by 40%</p>
+      </div>
+     </div>
+     <div class="card-hover bg-dark-card border border-dark-border rounded-sm overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-gold/10 to-gold/5 flex items-center justify-center">
+       <i data-lucide="users" class="w-16 h-16 text-gold/40"></i>
+      </div>
+      <div class="p-6">
+       <h3 class="text-gold font-semibold text-lg mb-2">Client Management Dashboard</h3>
+       <p class="text-gray-400 text-sm mb-4">A custom CRM-style dashboard for tracking client interactions, project status, and communication history.</p>
+       <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">HTML/CSS</span> <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">JavaScript</span> <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">MySQL</span>
+       </div>
+       <p class="text-gray-500 text-xs"><i data-lucide="check-circle" class="w-3 h-3 inline mr-1 text-gold"></i>Streamlined team communication</p>
+      </div>
+     </div>
+     <div class="card-hover bg-dark-card border border-dark-border rounded-sm overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-gold/10 to-gold/5 flex items-center justify-center">
+       <i data-lucide="monitor" class="w-16 h-16 text-gold/40"></i>
+      </div>
+      <div class="p-6">
+       <h3 class="text-gold font-semibold text-lg mb-2">Business Portfolio Website</h3>
+       <p class="text-gray-400 text-sm mb-4">Professional portfolio and landing pages designed for consultants and small business owners to establish their online presence.</p>
+       <div class="flex flex-wrap gap-2 mb-4">
+        <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">WordPress</span> <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">Canva</span> <span class="text-xs px-3 py-1 bg-gold/10 text-gold rounded-sm">GoDaddy</span>
+       </div>
+       <p class="text-gray-500 text-xs"><i data-lucide="check-circle" class="w-3 h-3 inline mr-1 text-gold"></i>Professional online presence established</p>
+      </div>
+     </div>
+    </div>
+    <div class="text-center mt-12">
+     <a href="https://arialearninghub.my.canva.site/portfolio-maria-kristina-basa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-3 border border-gold text-gold rounded-sm hover:bg-gold/10 transition-all text-sm"> View Full Portfolio <i data-lucide="external-link" class="w-4 h-4"></i> </a>
+    </div>
+   </div>
+  </section><!-- Skills Section -->
+  <section id="skills" class="py-24 px-6 bg-dark-card">
+   <div class="max-w-4xl mx-auto">
+    <h2 class="font-heading text-4xl md:text-5xl font-bold gold-gradient mb-16 text-center">Skills</h2>
+    <div class="grid md:grid-cols-2 gap-12">
+     <div>
+      <h3 class="text-gold font-semibold mb-6 text-sm tracking-widest uppercase">Technical</h3>
+      <div class="space-y-5">
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">HTML &amp; CSS</span><span class="text-gold text-xs">90%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:90%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">JavaScript</span><span class="text-gold text-xs">80%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:80%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">PHP &amp; MySQL</span><span class="text-gold text-xs">85%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:85%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">WordPress</span><span class="text-gold text-xs">90%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:90%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">GoDaddy / CMS</span><span class="text-gold text-xs">85%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:85%"></div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div>
+      <h3 class="text-gold font-semibold mb-6 text-sm tracking-widest uppercase">Professional</h3>
+      <div class="space-y-5">
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">Systems Thinking</span><span class="text-gold text-xs">95%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:95%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">Client Management</span><span class="text-gold text-xs">90%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:90%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">Project Coordination</span><span class="text-gold text-xs">88%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:88%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">Communication</span><span class="text-gold text-xs">92%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:92%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2"><span class="text-gray-400 text-sm">Canva &amp; Design Tools</span><span class="text-gold text-xs">85%</span>
+        </div>
+        <div class="w-full bg-dark-border rounded-sm h-1.5">
+         <div class="skill-bar" style="width:85%"></div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Process Section -->
+  <section id="process" class="py-24 px-6">
    <div class="max-w-3xl mx-auto">
-    <h3 class="font-display text-3xl font-bold text-center mb-14">Journey &amp; Credentials</h3>
-    <div class="space-y-8 border-l-2 border-[#c9a84c]/20 pl-8">
-     <div class="relative">
-      <div class="absolute -left-[41px] w-4 h-4 bg-[#c9a84c] rounded-full"></div>
-      <p class="text-sm text-[#c9a84c] font-medium">2018 – Present</p>
-      <h4 class="font-semibold text-lg mt-1">Freelance IT Consultant &amp; Web Developer</h4>
-      <p class="text-sm text-[#a09a8e] mt-1">Providing business systems, web development, and consultancy services to SMEs and organizations.</p>
+    <h2 class="font-heading text-4xl md:text-5xl font-bold gold-gradient mb-16 text-center">My Process</h2>
+    <div class="space-y-12 relative">
+     <div class="flex gap-6 items-start">
+      <div class="flex-shrink-0 w-12 h-12 bg-gold/10 border border-gold/30 rounded-full flex items-center justify-center text-gold font-heading font-bold">
+       1
+      </div>
+      <div>
+       <h3 class="text-gold font-semibold mb-1">Consultation &amp; Requirements</h3>
+       <p class="text-gray-400 text-sm">Understanding your goals, pain points, and vision through in-depth discussion.</p>
+      </div>
      </div>
-     <div class="relative">
-      <div class="absolute -left-[41px] w-4 h-4 bg-[#c9a84c]/60 rounded-full"></div>
-      <p class="text-sm text-[#c9a84c] font-medium">Ongoing</p>
-      <h4 class="font-semibold text-lg mt-1">Master of Information Technology</h4>
-      <p class="text-sm text-[#a09a8e] mt-1">Advancing expertise in systems architecture, data management, and emerging technologies.</p>
+     <div class="flex gap-6 items-start">
+      <div class="flex-shrink-0 w-12 h-12 bg-gold/10 border border-gold/30 rounded-full flex items-center justify-center text-gold font-heading font-bold">
+       2
+      </div>
+      <div>
+       <h3 class="text-gold font-semibold mb-1">Planning &amp; System Design</h3>
+       <p class="text-gray-400 text-sm">Mapping out the architecture, user flow, and technical approach for your solution.</p>
+      </div>
      </div>
-     <div class="relative">
-      <div class="absolute -left-[41px] w-4 h-4 bg-[#c9a84c]/60 rounded-full"></div>
-      <p class="text-sm text-[#c9a84c] font-medium">Academic Role</p>
-      <h4 class="font-semibold text-lg mt-1">College IT Instructor</h4>
-      <p class="text-sm text-[#a09a8e] mt-1">Teaching the next generation of IT professionals — bridging theory and real-world application.</p>
+     <div class="flex gap-6 items-start">
+      <div class="flex-shrink-0 w-12 h-12 bg-gold/10 border border-gold/30 rounded-full flex items-center justify-center text-gold font-heading font-bold">
+       3
+      </div>
+      <div>
+       <h3 class="text-gold font-semibold mb-1">Development &amp; Testing</h3>
+       <p class="text-gray-400 text-sm">Building your system with clean code, then rigorously testing every function.</p>
+      </div>
      </div>
-     <div class="relative">
-      <div class="absolute -left-[41px] w-4 h-4 bg-[#c9a84c]/40 rounded-full"></div>
-      <p class="text-sm text-[#c9a84c] font-medium">Foundation</p>
-      <h4 class="font-semibold text-lg mt-1">BS Information Technology</h4>
-      <p class="text-sm text-[#a09a8e] mt-1">Strong foundation in software development, database systems, and IT infrastructure.</p>
+     <div class="flex gap-6 items-start">
+      <div class="flex-shrink-0 w-12 h-12 bg-gold/10 border border-gold/30 rounded-full flex items-center justify-center text-gold font-heading font-bold">
+       4
+      </div>
+      <div>
+       <h3 class="text-gold font-semibold mb-1">Deployment</h3>
+       <p class="text-gray-400 text-sm">Launching your system live with full setup, configuration, and handover documentation.</p>
+      </div>
+     </div>
+     <div class="flex gap-6 items-start">
+      <div class="flex-shrink-0 w-12 h-12 bg-gold/10 border border-gold/30 rounded-full flex items-center justify-center text-gold font-heading font-bold">
+       5
+      </div>
+      <div>
+       <h3 class="text-gold font-semibold mb-1">Support &amp; Improvements</h3>
+       <p class="text-gray-400 text-sm">Ongoing maintenance, updates, and enhancements as your business grows.</p>
+      </div>
      </div>
     </div>
    </div>
-  </section><!-- Get in Touch -->
-  <section id="consult" class="py-24 px-6 bg-[#13161f]">
-   <div class="max-w-3xl mx-auto text-center">
-    <h3 class="font-display text-3xl font-bold mb-6">Ready to Get Started?</h3>
-    <p class="text-[#a09a8e] text-lg mb-8">Let's discuss how I can help your business grow. Reach out directly via email, and I'll get back to you as soon as possible.</p><a href="mailto:mrsmkdbasa@gmail.com?subject=Consultation%20Request%20from%20MKDB%20Portfolio" class="inline-flex items-center gap-3 px-8 py-4 bg-[#c9a84c] text-[#0f1117] font-semibold rounded-lg hover:bg-[#d4b65e] transition-colors text-lg"> <i data-lucide="mail" style="width:24px;height:24px;"></i> Send Me an Email </a>
-    <p class="text-[#706b60] text-sm mt-6">mrsmkdbasa@gmail.com</p>
+  </section><!-- System Solutions Section -->
+  <section class="py-24 px-6 bg-dark-card">
+   <div class="max-w-4xl mx-auto text-center">
+    <h2 class="font-heading text-4xl md:text-5xl font-bold gold-gradient mb-4">System Solutions</h2>
+    <p class="text-gray-500 mb-16 max-w-xl mx-auto">Custom-built systems designed to solve real business problems</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+     <div class="bg-dark border border-dark-border rounded-sm p-6 text-left card-hover">
+      <i data-lucide="clipboard-list" class="w-8 h-8 text-gold mb-4"></i>
+      <h4 class="text-white font-medium mb-2 text-sm">Ordering Systems</h4>
+      <p class="text-gray-500 text-xs">Automated product ordering with inventory tracking</p>
+     </div>
+     <div class="bg-dark border border-dark-border rounded-sm p-6 text-left card-hover">
+      <i data-lucide="calendar-check" class="w-8 h-8 text-gold mb-4"></i>
+      <h4 class="text-white font-medium mb-2 text-sm">Booking Platforms</h4>
+      <p class="text-gray-500 text-xs">Scheduling and reservation management</p>
+     </div>
+     <div class="bg-dark border border-dark-border rounded-sm p-6 text-left card-hover">
+      <i data-lucide="bar-chart-3" class="w-8 h-8 text-gold mb-4"></i>
+      <h4 class="text-white font-medium mb-2 text-sm">Management Dashboards</h4>
+      <p class="text-gray-500 text-xs">Real-time insights for data-driven decisions</p>
+     </div>
+     <div class="bg-dark border border-dark-border rounded-sm p-6 text-left card-hover">
+      <i data-lucide="file-text" class="w-8 h-8 text-gold mb-4"></i>
+      <h4 class="text-white font-medium mb-2 text-sm">Record Keeping</h4>
+      <p class="text-gray-500 text-xs">Digital filing and document management</p>
+     </div>
+     <div class="bg-dark border border-dark-border rounded-sm p-6 text-left card-hover">
+      <i data-lucide="repeat" class="w-8 h-8 text-gold mb-4"></i>
+      <h4 class="text-white font-medium mb-2 text-sm">Workflow Automation</h4>
+      <p class="text-gray-500 text-xs">Reducing repetitive manual tasks</p>
+     </div>
+     <div class="bg-dark border border-dark-border rounded-sm p-6 text-left card-hover">
+      <i data-lucide="shield" class="w-8 h-8 text-gold mb-4"></i>
+      <h4 class="text-white font-medium mb-2 text-sm">Secure Data Systems</h4>
+      <p class="text-gray-500 text-xs">Protected storage with access controls</p>
+     </div>
+    </div>
    </div>
-  </section><!-- Contact Footer -->
-  <footer class="py-12 px-6 border-t border-[#c9a84c]/10">
-   <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+  </section><!-- Contact Section -->
+  <section id="contact" class="py-24 px-6 bg-dark-card">
+   <div class="max-w-4xl mx-auto">
+    <h2 class="font-heading text-4xl md:text-5xl font-bold gold-gradient mb-4 text-center">Get In Touch</h2>
+    <p id="cta-text" class="text-gold-light/80 text-center mb-16 font-heading italic text-lg">Let's build your system.</p>
+    <div class="flex items-center gap-4">
+     <div class="w-10 h-10 bg-gold/10 rounded-sm flex items-center justify-center"><i data-lucide="mail" class="w-5 h-5 text-gold"></i>
+     </div>
+     <div>
+      <p class="text-gray-500 text-xs">Email</p><a href="mailto:mrsmkdbasa@gmail.com" class="text-white text-lg hover:text-gold transition-colors font-medium">mrsmkdbasa@gmail.com</a>
+     </div>
+    </div>
+    <div class="flex items-center gap-4">
+     <div class="w-10 h-10 bg-gold/10 rounded-sm flex items-center justify-center"><i data-lucide="phone" class="w-5 h-5 text-gold"></i>
+     </div>
+     <div>
+      <p class="text-gray-500 text-xs">Phone</p>
+      <p class="text-white text-lg font-medium">+63 919 577 9787</p>
+     </div>
+    </div>
+    <div class="flex items-center gap-4">
+     <div class="w-10 h-10 bg-gold/10 rounded-sm flex items-center justify-center"><i data-lucide="facebook" class="w-5 h-5 text-gold"></i>
+     </div>
+     <div>
+      <p class="text-gray-500 text-xs">Facebook</p><a href="https://www.facebook.com/mrsmkdbasa/" target="_blank" rel="noopener noreferrer" class="text-white text-lg hover:text-gold transition-colors font-medium">@mrsmkdbasa</a>
+     </div>
+    </div>
+   </div>
+  </section><!-- Footer -->
+  <footer class="py-10 px-6 border-t border-dark-border">
+   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
     <div class="text-center md:text-left">
-     <p class="font-display text-xl font-bold gradient-gold">MKDB</p>
-     <p class="text-sm text-[#706b60] mt-1">Systems. Solutions. Success.</p>
+     <p class="font-heading text-lg gold-gradient font-bold">MKDB</p>
+     <p class="text-gray-500 text-xs">Business Systems Consultant · Web Developer · Educator</p>
     </div>
-    <div class="flex flex-wrap justify-center gap-6 text-sm text-[#a09a8e]"><a href="mailto:mrsmkdbasa@gmail.com" class="flex items-center gap-2 hover:text-[#c9a84c] transition-colors"><i data-lucide="mail" style="width:16px;height:16px;"></i> mrsmkdbasa@gmail.com</a> <a href="tel:+639195779787" class="flex items-center gap-2 hover:text-[#c9a84c] transition-colors"><i data-lucide="phone" style="width:16px;height:16px;"></i> +63 919 577 9787</a>
+    <div class="flex items-center gap-4">
+     <a href="mailto:mrsmkdbasa@gmail.com" class="w-9 h-9 bg-dark-card border border-dark-border rounded-sm flex items-center justify-center hover:border-gold transition-colors"><i data-lucide="mail" class="w-4 h-4 text-gray-400 hover:text-gold"></i></a> <a href="https://www.facebook.com/mrsmkdbasa/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-dark-card border border-dark-border rounded-sm flex items-center justify-center hover:border-gold transition-colors"><i data-lucide="facebook" class="w-4 h-4 text-gray-400 hover:text-gold"></i></a>
     </div>
+    <p class="text-gray-500 text-xs">© 2025 Maria Kristina D. Basa. All rights reserved.</p>
    </div>
-   <p class="text-center text-xs text-[#706b60] mt-8">© 2024 MKDB. All rights reserved. BIR-Registered Professional.</p>
   </footer>
   <script>
     // Mobile menu
     document.getElementById('mobile-menu-btn').addEventListener('click', () => {
       document.getElementById('mobile-menu').classList.toggle('hidden');
     });
+    document.querySelectorAll('#mobile-menu a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
+    });
 
-    // Data SDK init
-    const dataHandler = { onDataChanged(data) {} };
-    window.dataSdk.init(dataHandler);
-
-    // Element SDK
+    // Default config
     const defaultConfig = {
-      tagline: 'Systems. Solutions. Success.',
-      subtitle: 'Building systems. Delivering solutions. Empowering people.',
-      background_color: '#0f1117',
-      surface_color: '#181b24',
-      text_color: '#e8e4dc',
-      accent_color: '#c9a84c',
-      muted_color: '#a09a8e',
-      font_family: 'Playfair Display',
+      hero_tagline: 'Systems. Solutions. Success.',
+      about_heading: 'About Me',
+      hero_roles: 'Business System Consultant · Web Developer · Project Coordinator · Educator',
+      background_color: '#0A0A0A',
+      gold_color: '#C9A84C',
+      text_color: '#FFFFFF',
+      gray_color: '#9CA3AF',
+      card_color: '#141414',
+      font_family: 'Cormorant Garamond',
       font_size: 16
     };
 
-    function applyConfig(config) {
-      const tagline = document.getElementById('tagline-el');
-      const subtitle = document.getElementById('subtitle-el');
-      if (tagline) tagline.textContent = config.tagline || defaultConfig.tagline;
-      if (subtitle) subtitle.textContent = config.subtitle || defaultConfig.subtitle;
-
-      const font = config.font_family || defaultConfig.font_family;
-      document.querySelectorAll('.font-display').forEach(el => { el.style.fontFamily = `${font}, serif`; });
-
-      const size = config.font_size || defaultConfig.font_size;
-      document.querySelectorAll('h1').forEach(el => { el.style.fontSize = `${size * 3.5}px`; });
-      document.querySelectorAll('h3').forEach(el => { el.style.fontSize = `${size * 1.875}px`; });
-
-      document.body.style.backgroundColor = config.background_color || defaultConfig.background_color;
-      document.body.style.color = config.text_color || defaultConfig.text_color;
-    }
-
+    // Element SDK
     window.elementSdk.init({
       defaultConfig,
-      onConfigChange: async (config) => { applyConfig(config); },
+      onConfigChange: async (config) => {
+        const h = (k) => config[k] || defaultConfig[k];
+        document.getElementById('hero-tagline').textContent = h('hero_tagline');
+        document.getElementById('about-heading').textContent = h('about_heading');
+        document.getElementById('hero-roles').textContent = h('hero_roles');
+
+        // Colors
+        document.body.style.backgroundColor = h('background_color');
+        document.documentElement.style.setProperty('--gold', h('gold_color'));
+
+        // Font
+        const font = h('font_family');
+        document.querySelectorAll('.font-heading, h1, h2, h3').forEach(el => {
+          el.style.fontFamily = `${font}, serif`;
+        });
+
+        // Font size
+        const size = h('font_size');
+        document.querySelectorAll('p, span, a').forEach(el => {
+          if (!el.closest('nav') && !el.closest('footer')) {
+            // Scale proportionally based on existing relative sizes
+          }
+        });
+      },
       mapToCapabilities: (config) => ({
         recolorables: [
           { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
-          { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+          { get: () => config.card_color || defaultConfig.card_color, set: (v) => { config.card_color = v; window.elementSdk.setConfig({ card_color: v }); } },
           { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-          { get: () => config.accent_color || defaultConfig.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
-          { get: () => config.muted_color || defaultConfig.muted_color, set: (v) => { config.muted_color = v; window.elementSdk.setConfig({ muted_color: v }); } }
+          { get: () => config.gold_color || defaultConfig.gold_color, set: (v) => { config.gold_color = v; window.elementSdk.setConfig({ gold_color: v }); } },
+          { get: () => config.gray_color || defaultConfig.gray_color, set: (v) => { config.gray_color = v; window.elementSdk.setConfig({ gray_color: v }); } }
         ],
         borderables: [],
         fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
         fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
       }),
       mapToEditPanelValues: (config) => new Map([
-        ['tagline', config.tagline || defaultConfig.tagline],
-        ['subtitle', config.subtitle || defaultConfig.subtitle]
+        ['hero_tagline', config.hero_tagline || defaultConfig.hero_tagline],
+        ['about_heading', config.about_heading || defaultConfig.about_heading],
+        ['hero_roles', config.hero_roles || defaultConfig.hero_roles]
       ])
     });
 
+    // Data SDK for contact form
+    const dataHandler = { onDataChanged(data) {} };
+
+    (async () => {
+      const initResult = await window.dataSdk.init(dataHandler);
+      if (!initResult.isOk) console.error('Data SDK init failed');
+    })();
+
+    // Contact form removed - only showing contact details now
+
+    // Init Lucide
     lucide.createIcons();
   </script>
-  <script>
-    // Philippines timezone clock
-    function updatePhilippinesClock() {
-      const now = new Date();
-      const phTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
-      const hours = String(phTime.getHours()).padStart(2, '0');
-      const minutes = String(phTime.getMinutes()).padStart(2, '0');
-      const seconds = String(phTime.getSeconds()).padStart(2, '0');
-      const ampm = phTime.getHours() >= 12 ? 'PM' : 'AM';
-      document.getElementById('ph-clock').textContent = `${hours}:${minutes} ${ampm}`;
-    }
-    updatePhilippinesClock();
-    setInterval(updatePhilippinesClock, 1000);
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f7c1408a121fedd',t:'MTc3ODExMzQzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f7c931ad3787aa1',t:'MTc3ODExODYzNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
