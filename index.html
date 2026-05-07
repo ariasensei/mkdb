@@ -7,7 +7,6 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <script src="/_sdk/element_sdk.js"></script>
-  <script src="/_sdk/data_sdk.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
     html, body { height: 100%; margin: 0; }
@@ -267,129 +266,120 @@
     document.getElementById('mobile-menu-btn').addEventListener('click', () => {
       document.getElementById('mobile-menu').classList.toggle('hidden');
     });
+// Form submission
+<script>
+// Form submission WITHOUT DATABASE
+document.getElementById('consult-form').addEventListener('submit', (e) => {
+    e.preventDefault();
 
-    // Form submission
-    document.getElementById('consult-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('submit-btn');
-      const status = document.getElementById('form-status');
-      
-      const name = document.getElementById('c-name').value.trim();
-      const email = document.getElementById('c-email').value.trim();
-      const phone = document.getElementById('c-phone').value.trim();
-      const company = document.getElementById('c-company').value.trim();
-      const service = document.getElementById('c-service').value;
-      const time = document.getElementById('time-select').value;
-      const message = document.getElementById('c-message').value.trim();
+    const btn = document.getElementById('submit-btn');
+    const status = document.getElementById('form-status');
 
-      if (!selectedDate) {
+    const name = document.getElementById('c-name').value.trim();
+    const email = document.getElementById('c-email').value.trim();
+    const phone = document.getElementById('c-phone').value.trim();
+    const company = document.getElementById('c-company').value.trim();
+    const service = document.getElementById('c-service').value;
+    const time = document.getElementById('time-select').value;
+    const message = document.getElementById('c-message').value.trim();
+
+    // Validate calendar date
+    if (!selectedDate) {
         status.className = 'text-center text-sm py-3 rounded-lg bg-red-500/10 text-red-400';
-        status.textContent = 'Please select a date on the calendar.';
+        status.textContent = 'Please select a consultation date.';
         status.classList.remove('hidden');
         return;
-      }
-      if (!time) {
-        status.className = 'text-center text-sm py-3 rounded-lg bg-red-500/10 text-red-400';
-        status.textContent = 'Please select a preferred time.';
-        status.classList.remove('hidden');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerHTML = '<span class="animate-spin inline-block w-4 h-4 border-2 border-[#0f1117] border-t-transparent rounded-full"></span> Submitting...';
-
-      const result = await window.dataSdk.create({
-        name,
-        email,
-        phone,
-        company,
-        service,
-        date: selectedDate.toISOString(),
-        time,
-        message,
-        submitted_at: new Date().toISOString()
-      });
-
-      if (result.isOk) {
-        status.className = 'text-center text-sm py-3 rounded-lg bg-green-500/10 text-green-400';
-        status.textContent = '✓ Booking request submitted! Please wait for a confirmation email from MKDB.';
-        status.classList.remove('hidden');
-        e.target.reset();
-        selectedDate = null;
-        renderCalendar();
-
-        // Send email notification via mailto
-        const subject = encodeURIComponent(`Consultation Booking: ${name} - ${selectedDate ? selectedDate.toLocaleDateString() : ''}`);
-        const body = encodeURIComponent(`New consultation booking:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nService: ${service}\nDate: ${selectedDate ? selectedDate.toLocaleDateString() : ''}\nTime: ${time}\nMessage: ${message}`);
-        window.open(`mailto:mrsmkdbasa@gmail.com?subject=${subject}&body=${body}`, '_blank');
-      } else {
-        status.className = 'text-center text-sm py-3 rounded-lg bg-red-500/10 text-red-400';
-        status.textContent = 'Something went wrong. Please try again or email directly.';
-        status.classList.remove('hidden');
-      }
-
-      btn.disabled = false;
-      btn.innerHTML = '<i data-lucide="send" style="width:16px;height:16px;"></i> Submit Booking Request';
-      lucide.createIcons();
-    });
-
-    // Data SDK init
-    const dataHandler = { onDataChanged(data) {} };
-    window.dataSdk.init(dataHandler);
-
-    // Element SDK
-    const defaultConfig = {
-      tagline: 'Systems. Solutions. Success.',
-      subtitle: 'Building systems. Delivering solutions. Empowering people.',
-      background_color: '#0f1117',
-      surface_color: '#181b24',
-      text_color: '#e8e4dc',
-      accent_color: '#c9a84c',
-      muted_color: '#a09a8e',
-      font_family: 'Playfair Display',
-      font_size: 16
-    };
-
-    function applyConfig(config) {
-      const tagline = document.getElementById('tagline-el');
-      const subtitle = document.getElementById('subtitle-el');
-      if (tagline) tagline.textContent = config.tagline || defaultConfig.tagline;
-      if (subtitle) subtitle.textContent = config.subtitle || defaultConfig.subtitle;
-
-      const font = config.font_family || defaultConfig.font_family;
-      document.querySelectorAll('.font-display').forEach(el => { el.style.fontFamily = `${font}, serif`; });
-
-      const size = config.font_size || defaultConfig.font_size;
-      document.querySelectorAll('h1').forEach(el => { el.style.fontSize = `${size * 3.5}px`; });
-      document.querySelectorAll('h3').forEach(el => { el.style.fontSize = `${size * 1.875}px`; });
-
-      document.body.style.backgroundColor = config.background_color || defaultConfig.background_color;
-      document.body.style.color = config.text_color || defaultConfig.text_color;
     }
 
-    window.elementSdk.init({
-      defaultConfig,
-      onConfigChange: async (config) => { applyConfig(config); },
-      mapToCapabilities: (config) => ({
-        recolorables: [
-          { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
-          { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
-          { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-          { get: () => config.accent_color || defaultConfig.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
-          { get: () => config.muted_color || defaultConfig.muted_color, set: (v) => { config.muted_color = v; window.elementSdk.setConfig({ muted_color: v }); } }
-        ],
-        borderables: [],
-        fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
-        fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
-      }),
-      mapToEditPanelValues: (config) => new Map([
-        ['tagline', config.tagline || defaultConfig.tagline],
-        ['subtitle', config.subtitle || defaultConfig.subtitle]
-      ])
+    // Validate time
+    if (!time) {
+        status.className = 'text-center text-sm py-3 rounded-lg bg-red-500/10 text-red-400';
+        status.textContent = 'Please select your preferred time.';
+        status.classList.remove('hidden');
+        return;
+    }
+
+    // Loading state
+    btn.disabled = true;
+
+    btn.innerHTML = `
+        <span class="animate-spin inline-block w-4 h-4 border-2 border-[#0f1117] border-t-transparent rounded-full"></span>
+        Preparing Email...
+    `;
+
+    // Save formatted date BEFORE reset
+    const formattedDate = selectedDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
 
+    // Email subject
+    const subject = encodeURIComponent(
+        `Consultation Booking Request - ${name}`
+    );
+
+    // Email body
+    const body = encodeURIComponent(
+`New Consultation Booking Request
+
+FULL NAME:
+${name}
+
+EMAIL:
+${email}
+
+PHONE:
+${phone}
+
+COMPANY / ORGANIZATION:
+${company}
+
+SERVICE INTERESTED IN:
+${service}
+
+PREFERRED DATE:
+${formattedDate}
+
+PREFERRED TIME:
+${time}
+
+MESSAGE:
+${message}
+
+-----------------------------------
+Sent from MKDB Website
+Systems. Solutions. Success.
+`
+    );
+
+    // Open user's email app
+    window.location.href =
+        `mailto:mrsmkdbasa@gmail.com?subject=${subject}&body=${body}`;
+
+    // Success message
+    status.className = 'text-center text-sm py-3 rounded-lg bg-green-500/10 text-green-400';
+    status.textContent = 'Your email app has been opened. Please click SEND to complete your booking request.';
+    status.classList.remove('hidden');
+
+    // Reset form AFTER mailto
+    document.getElementById('consult-form').reset();
+
+    selectedDate = null;
+    renderCalendar();
+
+    // Reset button
+    btn.disabled = false;
+
+    btn.innerHTML = `
+        <i data-lucide="send" style="width:16px;height:16px;"></i>
+        Submit Booking Request
+    `;
+
     lucide.createIcons();
-  </script>
+});
+</script>   
+  
   <script>
     // Philippines timezone clock
     function updatePhilippinesClock() {
